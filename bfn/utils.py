@@ -41,15 +41,30 @@ def files_by_language(files: Iterable[File]) -> Dict[str, Dict[str, File]]:
 
 
 def load_module(path: Path):
+    path.parts()
     spec = importlib.util.spec_from_file_location("", str(path))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
 
-def extract_bz2_if_not_exists(archive_path: Path) -> None:
+def extract_bz2_if_not_exists(archive_path: Path) -> Path:
     text_path = Path(archive_path.parent / archive_path.stem)
-    with open(text_path, 'wb') as text, \
-            bz2.BZ2File(archive_path, 'rb') as archive:
-        for data in iter(lambda: archive.read(100 * 1024), b''):
-            text.write(data)
+    if not text_path.exists():
+        with open(text_path, 'wb') as text, \
+                bz2.BZ2File(archive_path, 'rb') as archive:
+            for data in iter(lambda: archive.read(100 * 1024), b''):
+                text.write(data)
+    return text_path
+
+
+def split_train_eval(filepath):
+    train_path = filepath + ".train"
+    eval_path = filepath + ".eval"
+    with open(filepath, 'r') as fh, \
+            open(train_path, "w") as fh_train, \
+            open(eval_path, "w") as fh_eval:
+        lines = fh.readlines()
+        fh_train.writelines(lines[:-10000])
+        fh_eval.writelines(lines[-10000:])
+    return train_path, eval_path
