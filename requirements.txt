@@ -1,1 +1,2 @@
 -r OpenNMT-py/requirements.txt
+git+https://github.com:src-d/style-analyzer.git
