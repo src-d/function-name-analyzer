@@ -1,5 +1,8 @@
+import bz2
 from collections import defaultdict
 from difflib import SequenceMatcher
+import importlib.util
+from pathlib import Path
 from typing import Dict, Iterable, List
 
 from lookout.core.api.service_data_pb2 import File
@@ -35,3 +38,18 @@ def files_by_language(files: Iterable[File]) -> Dict[str, Dict[str, File]]:
             continue
         result[file.language.lower()][file.path] = file
     return result
+
+
+def load_module(path: Path):
+    spec = importlib.util.spec_from_file_location("", str(path))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def extract_bz2_if_not_exists(archive_path: Path) -> None:
+    text_path = Path(archive_path.parent / archive_path.stem)
+    with open(text_path, 'wb') as text, \
+            bz2.BZ2File(archive_path, 'rb') as archive:
+        for data in iter(lambda: archive.read(100 * 1024), b''):
+            text.write(data)
