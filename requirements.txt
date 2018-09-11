@@ -1,2 +1,1 @@
-pytorch
 -r OpenNMT-py/requirements.txt
