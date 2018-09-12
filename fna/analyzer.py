@@ -46,7 +46,7 @@ class FunctionNameAnalyzer(Analyzer):
                 except KeyError:
                     lines = None
                 else:
-                    lines = find_new_lines(prev_file, file)  # FIXME
+                    lines = find_new_lines(prev_file, file)
                 names_file, tokens_file, line_numbers = self._extract_features(file, lines)
                 for prediction, target, score, line_number, type_hint in self.translate(
                         tokens_file, names_file, line_numbers):
