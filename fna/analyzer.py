@@ -47,7 +47,7 @@ class FunctionNameAnalyzer(Analyzer):
                     lines = None
                 else:
                     lines = find_new_lines(prev_file, file)  # FIXME
-                tokens_file, names_file, line_numbers = self._extract_features(file, lines)
+                names_file, tokens_file, line_numbers = self._extract_features(file, lines)
                 for prediction, target, score, line_number, type_hint in self.translate(
                         tokens_file, names_file, line_numbers):
                     comment = Comment()
