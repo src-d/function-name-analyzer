@@ -1,3 +1,5 @@
 -r OpenNMT-py/requirements.txt
 -e OpenNMT-py
 git+https://github.com/src-d/style-analyzer
+PyStemmer
+sourced-ml
