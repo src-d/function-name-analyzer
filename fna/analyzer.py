@@ -86,8 +86,9 @@ class FunctionNameAnalyzer(Analyzer):
                 name = subnode.token
                 break
             yield (name, node.start_position.line, node.end_position.line,
-                   [token for token, pos in sorted(
-                       self.process_uast(node), key=lambda x: x[1])])
+                   [token for token, pos in
+                    sorted(self.process_uast(node), key=lambda x: x[1])
+                    if len(token) >= 5])
 
     def get_affected_functions(self, uast, lines: Optional[Sequence[int]]):
         functions_info = list(self.extract_functions_from_uast(uast))
