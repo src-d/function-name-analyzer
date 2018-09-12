@@ -1,3 +1,6 @@
 __pycache__
 names.txt
 tokens.txt
+data/
+models/
+preprocessed/
