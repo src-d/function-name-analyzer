@@ -105,10 +105,11 @@ class FunctionNameAnalyzer(Analyzer):
                     continue
                 name = subnode.token
                 break
+            tokens = list(self.process_uast(node))
+            if len(tokens) < 5:
+                continue
             yield (name, node.start_position.line, node.end_position.line,
-                   [token for token, pos in
-                    sorted(self.process_uast(node), key=lambda x: x[1])
-                    if len(token) >= 5])
+                   [token for token, pos in sorted(tokens, key=lambda x: x[1])])
 
     def get_affected_functions(self, uast, lines: Optional[Sequence[int]]):
         functions_info = list(self.extract_functions_from_uast(uast))
