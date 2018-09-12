@@ -5,7 +5,6 @@ from lookout.core.analyzer import Analyzer, ReferencePointer
 from lookout.core.api.service_analyzer_pb2 import Comment
 from lookout.core.api.service_data_pb2_grpc import DataStub
 from lookout.core.data_requests import with_changed_uasts_and_contents, with_uasts_and_contents
-from lookout.style.format.model import FormatModel
 
 from fna.model import FunctionNameModel
 from fna.utils import find_new_lines, files_by_language
@@ -49,7 +48,7 @@ class FunctionNameAnalyzer(Analyzer):
         :param data_request_stub: connection to the Lookout data retrieval service, not used.
         :return: FunctionNameModel dummy model.
         """
-        return FormatModel().construct(cls, ptr)
+        return FunctionNameModel().construct(cls, ptr)
 
     def _extract_features(self, file, lines):
         raise NotImplemented()
