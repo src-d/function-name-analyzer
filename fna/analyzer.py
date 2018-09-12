@@ -40,7 +40,7 @@ class FunctionNameAnalyzer(Analyzer):
             if lang.lower() != "java":
                 continue
             self.log.info("Working on %d java files", len(lang_head_files))
-            for path, file in lang_head_files.items():
+            for i, (path, file) in enumerate(lang_head_files.items(), start=1):
                 try:
                     prev_file = base_files[lang][path]
                 except KeyError:
@@ -62,6 +62,7 @@ class FunctionNameAnalyzer(Analyzer):
                         comment.text = "Consider a more specific name: %s instead of %s" % (
                             prediction, target)
                     comments.append(comment)
+                self.log.info("Processed %d files", i)
         return comments
 
     @classmethod
