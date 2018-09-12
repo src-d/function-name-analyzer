@@ -2,7 +2,7 @@
 
 This analyzer applies a translation model from function identifiers to function names.
 
-# Installation
+## Installation
 
 1. Install [PyTorch](https://pytorch.org/) 0.4
 2. Install the dependencies
@@ -12,7 +12,7 @@ This analyzer applies a translation model from function identifiers to function 
 
         pip install -e .
 
-# Usage
+## Usage
 
 1. Start the lookout python server
 
