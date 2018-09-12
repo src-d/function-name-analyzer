@@ -1,18 +1,8 @@
 from importlib.machinery import SourceFileLoader
-import sys
 
 from setuptools import setup, find_packages
 
 fna = SourceFileLoader("fna", "./fna/__init__.py").load_module()
-
-if sys.version_info < (3, 5, 0):
-    typing = ["typing"]
-else:
-    typing = []
-
-tests_require = ["docker>=3.4.0,<4.0",
-                 "pandas>=0.20,<2.0"]
-
 
 setup(
     name="lookout-function-name",
