@@ -31,7 +31,7 @@ def train(args: argparse.Namespace) -> None:
     import onmt.train
     os.makedirs("models", exist_ok=True)
     command = ("train.py -data preprocessed/model -save_model models/model -gpuid 1 "
-               "-valid_steps 10000 -save_checkpoint_steps 10000")
+               "-valid_steps 10000 -save_checkpoint_steps 10000 -train_steps 1000000")
     if args.from_model:
         command += " -train_from %s" % args.from_model
     with patch("sys.argv", command.split(" ")):
