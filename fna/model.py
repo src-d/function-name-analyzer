@@ -9,3 +9,9 @@ class FunctionNameModel(AnalyzerModel):
     """
     NAME = "function-name"
     VENDOR = "source{d}"
+
+    def _generate_tree(self):
+        return {}
+
+    def _load_tree(self, tree):
+        pass

@@ -3,3 +3,4 @@
 git+https://github.com/src-d/style-analyzer
 PyStemmer
 sourced-ml
+bblfsh
