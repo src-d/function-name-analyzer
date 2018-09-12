@@ -40,14 +40,6 @@ def files_by_language(files: Iterable[File]) -> Dict[str, Dict[str, File]]:
     return result
 
 
-def load_module(path: Path):
-    path.parts()
-    spec = importlib.util.spec_from_file_location("", str(path))
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
 def extract_bz2_if_not_exists(archive_path: Path) -> Path:
     text_path = Path(archive_path.parent / archive_path.stem)
     if not text_path.exists():
