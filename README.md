@@ -4,7 +4,7 @@ This analyzer applies a translation model from function identifiers to function 
 
 ## Installation
 
-1. Install [PyTorch](https://pytorch.org/) 0.4
+1. Install [PyTorch](https://pytorch.org/) 0.4 with the CUDA option that suits your setup
 2. Install the dependencies
 
         pip install -r requirements.txt
