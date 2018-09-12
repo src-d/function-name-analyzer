@@ -56,9 +56,11 @@ class FunctionNameAnalyzer(Analyzer):
                     comment.confidence = int(round(score * 100))
                     comments.append(comment)
                     if type_hint == FunctionNameAnalyzer.TranslationTypes.LESS_DETAILED:
-                        comment.text = "Consider a more generic name: %s" % prediction
+                        comment.text = "Consider a more generic name: %s instead of %s" % (
+                            prediction, target)
                     else:
-                        comment.text = "Consider a more specific name: %s" % prediction
+                        comment.text = "Consider a more specific name: %s instead of %s" % (
+                            prediction, target)
                     comments.append(comment)
         return comments
 
