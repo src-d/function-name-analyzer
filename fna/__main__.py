@@ -1,14 +1,14 @@
 import argparse
 import os
 from pathlib import Path
-import sys
 from unittest.mock import patch
 
-from utils import extract_bz2_if_not_exists, split_train_eval
+import torch
+
+from fna.utils import extract_bz2_if_not_exists, split_train_eval
 
 
 def preprocess(args: argparse.Namespace) -> None:
-    sys.path.append(str(Path(__file__).parent.parent / "OpenNMT-py"))
     import onmt.preprocess
     tokens_text_path = extract_bz2_if_not_exists(Path(args.tokens_archive))
     names_text_path = extract_bz2_if_not_exists(Path(args.names_archive))
@@ -27,18 +27,19 @@ def preprocess(args: argparse.Namespace) -> None:
 
 
 def train(args: argparse.Namespace) -> None:
-    sys.path.append(str(Path(__file__).parent.parent / "OpenNMT-py"))
     import onmt.train
     os.makedirs("models", exist_ok=True)
-    command = ("train.py -data preprocessed/model -save_model models/model -gpuid 1 "
+    command = ("train.py -data preprocessed/model -save_model models/model "
                "-valid_steps 10000 -save_checkpoint_steps 10000 -train_steps 1000000")
+    if torch.cuda.is_available():
+        command += " -gpuid 1"
     if args.from_model:
         command += " -train_from %s" % args.from_model
     with patch("sys.argv", command.split(" ")):
         onmt.train.main()
 
 
-def main() -> int:
+def main() -> None:
     parser = argparse.ArgumentParser(description="Facilities to train OpenNMT model.")
     subparsers = parser.add_subparsers()
     parser_preprocess = subparsers.add_parser("preprocess",

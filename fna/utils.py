@@ -1,9 +1,8 @@
 import bz2
 from collections import defaultdict
 from difflib import SequenceMatcher
-import importlib.util
 from pathlib import Path
-from typing import Dict, Iterable, List
+from typing import Dict, Iterable, List, Tuple
 
 from lookout.core.api.service_data_pb2 import File
 
@@ -50,7 +49,7 @@ def extract_bz2_if_not_exists(archive_path: Path) -> Path:
     return text_path
 
 
-def split_train_eval(filepath):
+def split_train_eval(filepath: str) -> Tuple[str, str]:
     train_path = filepath + ".train"
     eval_path = filepath + ".eval"
     with open(filepath, 'r') as fh, \

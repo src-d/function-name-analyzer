@@ -7,8 +7,8 @@ from lookout.core.api.service_data_pb2_grpc import DataStub
 from lookout.core.data_requests import with_changed_uasts_and_contents, with_uasts_and_contents
 from lookout.style.format.model import FormatModel
 
-from .model import FunctionNameModel
-from .utils import find_new_lines, files_by_language
+from fna.model import FunctionNameModel
+from fna.utils import find_new_lines, files_by_language
 
 
 class FunctionNameAnalyzer(Analyzer):
